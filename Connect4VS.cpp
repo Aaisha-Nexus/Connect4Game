@@ -1,9 +1,8 @@
 
-#include <iostream> //current version
+#include <iostream> 
 #include <iomanip>
 
 using namespace std;
-//tamam functions joh istemal huwe hain program mein unka PROTOTYPE
 bool isFull(); 
 bool dropdisk();
 void gamelook();
@@ -13,7 +12,7 @@ bool drawchecker();
 
 char connectfour[6][7]; // Global array 
 
-bool isFull(int col) {  //column full hai ya nahi check karne k liye function
+bool isFull(int col) {  
     for (int i = 0; i < 6; i++) 
 	{
         if (connectfour[i][col] == '-')
@@ -24,7 +23,7 @@ bool isFull(int col) {  //column full hai ya nahi check karne k liye function
     return true;
 }
 
-bool dropdisk(int col, char player) //disk drop karne k liye function
+bool dropdisk(int col, char player) 
 {
     for (int i = 5; i >= 0; i--)
 	 {
@@ -37,7 +36,7 @@ bool dropdisk(int col, char player) //disk drop karne k liye function
     return false;
 }
 
-void gamelook()  //game ki visual representation k liye fucntion
+void gamelook()  
 {
   for (int i = 0; i < 6; i++) 
   {
@@ -58,15 +57,12 @@ void gamelook()  //game ki visual representation k liye fucntion
 
 //WINNING CHECK
 bool checkWin(char player) {
-  // row wise check karein
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j <8; ++j) {
       if (connectfour[i][j] == player && connectfour[i][j + 1] == player &&
           connectfour[i][j + 2] == player && connectfour[i][j + 3] == player) {
-
-        return true;
+	 return true;
       }
-      // columns wise check karein
       if (connectfour[i][j] == player && connectfour[i + 1][j] == player &&
           connectfour[i + 2][j] == player && connectfour[i + 3][j] == player) {
         return true;
@@ -89,23 +85,18 @@ bool checkWin(char player) {
           connectfour[i + 1][j - 1] == player && connectfour[i + 2][j - 2] == player &&
           connectfour[i + 3][j - 3] == player) {
         return true;
-      }
+	}
   }
-
- 
-  }
+}
 
   return false;
 }
-   
-
-  							// START OF MAIN FUNCTION 
+   		// START OF MAIN FUNCTION 
 int main() {
     cout << setw(10) << " WELCOME TO CONNECT4 GAME! " << endl;
     char player1 = 'R', player2 = 'Y';
     char currentPlayer = player1;
 
-     // GAME KO DASH - SE INITIALIZE KIA HAI
     for (int i = 0; i < 6; i++) {
         for (int j = 0; j < 7; j++) {
             connectfour[i][j] = '-';
@@ -115,10 +106,10 @@ int main() {
     while (true) 
 	{  
         int columnChoice;
-        cout << "Drop a " << currentPlayer << " disk at column (0-6): "; //disk drop kardein desired column mein
+        cout << "Drop a " << currentPlayer << " disk at column (0-6): "; 
         cin >> columnChoice;
 
-        // Check column choice range validity and if column is full or not
+       
         if (columnChoice < 0 || columnChoice > 6 || isFull(columnChoice) || !dropdisk(columnChoice, currentPlayer)) {
             if (columnChoice < 0 || columnChoice > 6) {
                 cout << "INVALID COLUMN! PLEASE SELECT A COLUMN IN RANGE (0-6)" << endl;
@@ -133,15 +124,10 @@ int main() {
         // Display the game
         gamelook();
         
-        // disk drop karane k baad winner check karein
   if (checkWin(currentPlayer)) {
     cout << "Player "<<currentPlayer << " won the game!" << endl;
-    break; // Exit the loop 
+    break; 
   }
-  		
-
-
-        // ek player k baad dusra player switch karein (toggling)
         if (currentPlayer == player1)
             currentPlayer = player2;
         else
